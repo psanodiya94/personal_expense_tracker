@@ -9,7 +9,7 @@ COPY frontend/Cargo.toml ./frontend/Cargo.toml
 
 # Build the application
 WORKDIR /app/backend
-RUN cargo build --release
+RUN cargo build --release --package expense-tracker-backend
 
 # Runtime stage
 FROM debian:bookworm-slim
