@@ -4,13 +4,13 @@ A full-stack web application built entirely in Rust, demonstrating modern Rust c
 
 ## 📚 Documentation
 
-- **[SETUP.md](SETUP.md)** - Complete setup guide with step-by-step instructions
+- **[SETUP.md](instructions/SETUP.md)** - Complete setup guide with step-by-step instructions
   - Prerequisites and installation
   - Database configuration
   - Running with Docker
   - Troubleshooting guide
 
-- **[API_REFERENCE.md](API_REFERENCE.md)** - Complete API documentation
+- **[API_REFERENCE.md](instructions/API_REFERENCE.md)** - Complete API documentation
   - All endpoints with examples
   - Request/response formats
   - Authentication details
