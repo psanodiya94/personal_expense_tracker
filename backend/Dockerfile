@@ -5,6 +5,7 @@ WORKDIR /app
 # Copy workspace files
 COPY Cargo.toml ./
 COPY backend ./backend
+COPY frontend/Cargo.toml ./frontend/Cargo.toml
 
 # Build the application
 WORKDIR /app/backend
