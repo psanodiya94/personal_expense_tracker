@@ -1,4 +1,4 @@
-FROM rust:1.75 as builder
+FROM rust:1.75 AS builder
 
 # Install trunk and add wasm target
 RUN cargo install trunk
