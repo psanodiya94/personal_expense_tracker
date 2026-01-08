@@ -12,6 +12,7 @@
 //! - **Type Safety**: NewType pattern with UUIDs and specific types
 
 use chrono::{DateTime, NaiveDate, Utc};
+use rust_decimal::Decimal;
 use serde::{Deserialize, Serialize};
 use sqlx::FromRow;
 use uuid::Uuid;
@@ -288,7 +289,7 @@ pub struct Expense {
     /// ID of the category this expense belongs to
     pub category_id: Uuid,
     /// Amount spent (stored as DECIMAL for precise financial calculations)
-    pub amount: sqlx::types::Decimal,
+    pub amount: Decimal,
     /// Description of what was purchased/paid for
     pub description: String,
     /// Date when the expense occurred (not necessarily when it was recorded)
@@ -331,7 +332,7 @@ pub struct ExpenseWithCategory {
     /// Category icon (from joined table)
     pub category_icon: Option<String>,
     /// Amount spent
-    pub amount: sqlx::types::Decimal,
+    pub amount: Decimal,
     /// Description of the expense
     pub description: String,
     /// Date of the expense
@@ -466,7 +467,7 @@ pub struct MonthlySummary {
     /// Year as integer
     pub year: i32,
     /// Total amount spent in this month
-    pub total_amount: sqlx::types::Decimal,
+    pub total_amount: Decimal,
     /// Number of expenses in this month
     pub expense_count: i64,
 }
@@ -514,7 +515,7 @@ pub struct CategorySummary {
     /// Category icon for UI
     pub category_icon: Option<String>,
     /// Total amount spent in this category
-    pub total_amount: sqlx::types::Decimal,
+    pub total_amount: Decimal,
     /// Number of expenses in this category
     pub expense_count: i64,
 }

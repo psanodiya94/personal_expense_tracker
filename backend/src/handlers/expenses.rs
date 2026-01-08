@@ -3,7 +3,7 @@ use axum::{
     http::StatusCode,
     Json,
 };
-use sqlx::types::Decimal;
+use rust_decimal::Decimal;
 use uuid::Uuid;
 use validator::Validate;
 
@@ -33,8 +33,8 @@ pub async fn create_expense(
         return Err(AppError::NotFound("Category not found".to_string()));
     }
 
-    let amount = Decimal::from_f64_retain(payload.amount)
-        .ok_or_else(|| AppError::Validation("Invalid amount".to_string()))?;
+    let amount = Decimal::try_from(payload.amount)
+        .map_err(|_| AppError::Validation("Invalid amount".to_string()))?;
 
     let expense = sqlx::query_as::<_, ExpenseWithCategory>(
         r#"
@@ -206,8 +206,8 @@ pub async fn update_expense(
     }
 
     if let Some(amount) = payload.amount {
-        let decimal_amount = Decimal::from_f64_retain(amount)
-            .ok_or_else(|| AppError::Validation("Invalid amount".to_string()))?;
+        let decimal_amount = Decimal::try_from(amount)
+            .map_err(|_| AppError::Validation("Invalid amount".to_string()))?;
         update_fields.push(format!("amount = {}", decimal_amount));
     }
 

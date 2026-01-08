@@ -1,5 +1,4 @@
 use axum::{extract::State, http::StatusCode, Json};
-use sqlx::PgPool;
 use validator::Validate;
 
 use crate::{

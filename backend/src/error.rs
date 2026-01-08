@@ -11,6 +11,9 @@ pub enum AppError {
     #[error("Database error: {0}")]
     Database(#[from] sqlx::Error),
 
+    #[error("Migration error: {0}")]
+    Migration(#[from] sqlx::migrate::MigrateError),
+
     #[error("Authentication failed: {0}")]
     Authentication(String),
 
@@ -39,6 +42,10 @@ impl IntoResponse for AppError {
             AppError::Database(ref e) => {
                 tracing::error!("Database error: {:?}", e);
                 (StatusCode::INTERNAL_SERVER_ERROR, "Database error occurred")
+            }
+            AppError::Migration(ref e) => {
+                tracing::error!("Migration error: {:?}", e);
+                (StatusCode::INTERNAL_SERVER_ERROR, "Database migration error")
             }
             AppError::Authentication(ref msg) => (StatusCode::UNAUTHORIZED, msg.as_str()),
             AppError::Unauthorized => (StatusCode::UNAUTHORIZED, "Unauthorized"),
