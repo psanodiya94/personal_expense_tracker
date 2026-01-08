@@ -7,6 +7,9 @@ COPY Cargo.toml ./
 COPY backend ./backend
 COPY frontend/Cargo.toml ./frontend/Cargo.toml
 
+# Create dummy frontend source to satisfy workspace validation
+RUN mkdir -p frontend/src && echo "// Dummy file for workspace validation" > frontend/src/lib.rs
+
 # Build the application
 WORKDIR /app/backend
 RUN cargo build --release --package expense-tracker-backend
