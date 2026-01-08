@@ -4,7 +4,10 @@ use crate::api::{login, register};
 use crate::models::{LoginRequest, RegisterRequest};
 
 #[component]
-pub fn Auth(on_auth: WriteSignal<bool>) -> impl IntoView {
+pub fn Auth<F>(on_auth: F) -> impl IntoView
+where
+    F: Fn() + Copy + 'static,
+{
     let (is_login, set_is_login) = create_signal(true);
     let (email, set_email) = create_signal(String::new());
     let (password, set_password) = create_signal(String::new());
@@ -42,7 +45,7 @@ pub fn Auth(on_auth: WriteSignal<bool>) -> impl IntoView {
 
             match result {
                 Ok(_) => {
-                    on_auth.set(true);
+                    on_auth();
                 }
                 Err(e) => {
                     set_error.set(Some(e));

@@ -6,10 +6,13 @@ use crate::api::create_expense;
 use crate::models::{Category, CreateExpense};
 
 #[component]
-pub fn ExpenseForm(
+pub fn ExpenseForm<F>(
     categories: ReadSignal<Vec<Category>>,
-    on_created: WriteSignal<bool>,
-) -> impl IntoView {
+    on_created: F,
+) -> impl IntoView
+where
+    F: Fn() + Copy + 'static,
+{
     let (category_id, set_category_id) = create_signal(None::<Uuid>);
     let (amount, set_amount) = create_signal(String::new());
     let (description, set_description) = create_signal(String::new());
@@ -69,7 +72,7 @@ pub fn ExpenseForm(
                     set_amount.set(String::new());
                     set_description.set(String::new());
                     set_category_id.set(None);
-                    on_created.set(true);
+                    on_created();
                 }
                 Err(e) => {
                     set_error.set(Some(e));
