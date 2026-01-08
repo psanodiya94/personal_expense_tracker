@@ -14,9 +14,9 @@ fn App() -> impl IntoView {
     view! {
         <div>
             {move || if is_authenticated.get() {
-                view! { <Dashboard on_logout=WriteSignal::from(move |_| set_is_authenticated.set(false)) /> }.into_view()
+                view! { <Dashboard on_logout=move || set_is_authenticated.set(false) /> }.into_view()
             } else {
-                view! { <Auth on_auth=WriteSignal::from(move |_| set_is_authenticated.set(true)) /> }.into_view()
+                view! { <Auth on_auth=move || set_is_authenticated.set(true) /> }.into_view()
             }}
         </div>
     }

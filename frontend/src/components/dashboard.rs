@@ -9,7 +9,10 @@ use crate::api::{
 use crate::models::{Category, CategorySummary, Expense, MonthlySummary};
 
 #[component]
-pub fn Dashboard(on_logout: WriteSignal<bool>) -> impl IntoView {
+pub fn Dashboard<F>(on_logout: F) -> impl IntoView
+where
+    F: Fn() + Copy + 'static,
+{
     let (categories, set_categories) = create_signal(Vec::<Category>::new());
     let (expenses, set_expenses) = create_signal(Vec::<Expense>::new());
     let (monthly_summary, set_monthly_summary) = create_signal(Vec::<MonthlySummary>::new());
@@ -59,7 +62,7 @@ pub fn Dashboard(on_logout: WriteSignal<bool>) -> impl IntoView {
 
     let handle_logout = move |_| {
         clear_token();
-        on_logout.set(true);
+        on_logout();
     };
 
     let handle_delete = move |id: Uuid| {
@@ -129,7 +132,7 @@ pub fn Dashboard(on_logout: WriteSignal<bool>) -> impl IntoView {
 
                         <crate::components::expense_form::ExpenseForm
                             categories=categories
-                            on_created=WriteSignal::from(move |_| reload_data.update(|v| *v += 1))
+                            on_created=move || reload_data.update(|v| *v += 1)
                         />
 
                         <div class="card">

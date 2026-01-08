@@ -1,5 +1,5 @@
 use gloo_net::http::Request;
-use serde::{Deserialize, Serialize};
+use serde::Deserialize;
 use uuid::Uuid;
 use web_sys::window;
 
