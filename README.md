@@ -2,6 +2,38 @@
 
 A full-stack web application built entirely in Rust, demonstrating modern Rust concepts and real-world application development.
 
+## 📚 Documentation
+
+- **[SETUP.md](SETUP.md)** - Complete setup guide with step-by-step instructions
+  - Prerequisites and installation
+  - Database configuration
+  - Running with Docker
+  - Troubleshooting guide
+
+- **[API_REFERENCE.md](API_REFERENCE.md)** - Complete API documentation
+  - All endpoints with examples
+  - Request/response formats
+  - Authentication details
+  - cURL and code examples
+
+- **Inline Code Documentation** - Comprehensive doc comments throughout the codebase
+  - Run `cargo doc --open` to view generated documentation
+  - All modules, functions, and types are documented
+  - Examples and usage patterns included
+
+## ⚡ Quick Start
+
+```bash
+# Option 1: Docker (easiest)
+docker-compose up -d
+# Access at http://localhost:8080
+
+# Option 2: Manual setup
+# See SETUP.md for detailed instructions
+cd backend && cargo run  # Terminal 1
+cd frontend && trunk serve  # Terminal 2
+```
+
 ## Features
 
 ### Backend (Rust + Axum)
